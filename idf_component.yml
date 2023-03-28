@@ -1,0 +1,8 @@
+## IDF Component Manager Manifest File
+dependencies:
+  ## Required IDF version
+  idf:
+    version: ">=5.0.0"
+description: ESP IDF component handling button debouce within an event loop.
+url: https://github.com/etdds/esp-idf-button-events.git
+version: 1.0.0

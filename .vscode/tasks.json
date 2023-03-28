@@ -1,0 +1,356 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Build - Buttons",
+            "type": "shell",
+            "command": "${config:idf.pythonBinPath} ${config:idf.espIdfPath}/tools/idf.py build -C examples/buttons",
+            "options": {
+                "env": {
+                    "PATH": "${env:PATH}:${config:idf.customExtraPaths}",
+                }
+            },
+            "problemMatcher": [
+                {
+                    "owner": "cpp",
+                    "fileLocation": [
+                        "relative",
+                        "${workspaceFolder}"
+                    ],
+                    "pattern": {
+                        "regexp": "^\\.\\.(.*):(\\d+):(\\d+):\\s+(warning|error):\\s+(.*)$",
+                        "file": 1,
+                        "line": 2,
+                        "column": 3,
+                        "severity": 4,
+                        "message": 5
+                    }
+                },
+                {
+                    "owner": "cpp",
+                    "fileLocation": "absolute",
+                    "pattern": {
+                        "regexp": "^[^\\.](.*):(\\d+):(\\d+):\\s+(warning|error):\\s+(.*)$",
+                        "file": 1,
+                        "line": 2,
+                        "column": 3,
+                        "severity": 4,
+                        "message": 5
+                    }
+                }
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+        },
+        {
+            "label": "Configure - Buttons (ttgo-tdisplay)",
+            "type": "shell",
+            "command": "rm sdkconfig* && cp ttgo-tdisplay.defaults sdkconfig.defaults && idf.py set-target esp32",
+            "options": {
+                "cwd": "${workspaceRoot}/examples/buttons"
+            },
+            "problemMatcher": {
+                "owner": "cpp",
+                "fileLocation": "absolute",
+                "pattern": {
+                    "regexp": "^(.*):(//d+):(//d+)://s+(warning|error)://s+(.*)$",
+                    "file": 1,
+                    "line": 2,
+                    "column": 3,
+                    "severity": 4,
+                    "message": 5
+                }
+            }
+        },
+        {
+            "label": "Configure - Buttons (ttgo-s3)",
+            "type": "shell",
+            "command": "rm sdkconfig* && cp ttgo-s3.defaults sdkconfig.defaults && idf.py set-target esp32s3",
+            "options": {
+                "cwd": "${workspaceRoot}/examples/buttons"
+            },
+            "problemMatcher": {
+                "owner": "cpp",
+                "fileLocation": "absolute",
+                "pattern": {
+                    "regexp": "^(.*):(//d+):(//d+)://s+(warning|error)://s+(.*)$",
+                    "file": 1,
+                    "line": 2,
+                    "column": 3,
+                    "severity": 4,
+                    "message": 5
+                }
+            }
+        },
+        {
+            "label": "Set ESP-IDF Target",
+            "type": "shell",
+            "command": "${command:espIdf.setTarget}",
+            "problemMatcher": {
+                "owner": "cpp",
+                "fileLocation": "absolute",
+                "pattern": {
+                    "regexp": "^(.*):(//d+):(//d+)://s+(warning|error)://s+(.*)$",
+                    "file": 1,
+                    "line": 2,
+                    "column": 3,
+                    "severity": 4,
+                    "message": 5
+                }
+            }
+        },
+        {
+            "label": "Menuconfig - Buttons (any)",
+            "type": "shell",
+            "command": "idf.py -C examples/buttons menuconfig ",
+            "problemMatcher": {
+                "owner": "cpp",
+                "fileLocation": "absolute",
+                "pattern": {
+                    "regexp": "^(.*):(//d+):(//d+)://s+(warning|error)://s+(.*)$",
+                    "file": 1,
+                    "line": 2,
+                    "column": 3,
+                    "severity": 4,
+                    "message": 5
+                }
+            }
+        },
+        {
+            "label": "Pristine - Button (any)",
+            "type": "shell",
+            "command": "rm",
+            "args": [
+                "-rf",
+                "examples/buttons/build",
+                "examples/buttons/sdkconfig",
+                "examples/buttons/sdkconfig.old",
+                "examples/buttons/dependencies.lock",
+                "examples/buttons/managed_components"
+            ],
+            "problemMatcher": [
+                "$espIdf"
+            ]
+        },
+        {
+            "label": "Clean - Buttons (any)",
+            "type": "shell",
+            "command": "${config:idf.pythonBinPath} ${config:idf.espIdfPath}/tools/idf.py fullclean -C examples/buttons",
+            "windows": {
+                "command": "${config:idf.pythonBinPathWin} ${config:idf.espIdfPathWin}\\tools\\idf.py fullclean",
+                "options": {
+                    "env": {
+                        "PATH": "${env:PATH};${config:idf.customExtraPaths}"
+                    }
+                }
+            },
+            "options": {
+                "env": {
+                    "PATH": "${env:PATH}:${config:idf.customExtraPaths}"
+                }
+            },
+            "problemMatcher": [
+                {
+                    "owner": "cpp",
+                    "fileLocation": [
+                        "relative",
+                        "${workspaceFolder}"
+                    ],
+                    "pattern": {
+                        "regexp": "^\\.\\.(.*):(\\d+):(\\d+):\\s+(warning|error):\\s+(.*)$",
+                        "file": 1,
+                        "line": 2,
+                        "column": 3,
+                        "severity": 4,
+                        "message": 5
+                    }
+                },
+                {
+                    "owner": "cpp",
+                    "fileLocation": "absolute",
+                    "pattern": {
+                        "regexp": "^[^\\.](.*):(\\d+):(\\d+):\\s+(warning|error):\\s+(.*)$",
+                        "file": 1,
+                        "line": 2,
+                        "column": 3,
+                        "severity": 4,
+                        "message": 5
+                    }
+                }
+            ]
+        },
+        {
+            "label": "Flash - Buttons (any)",
+            "type": "shell",
+            "command": "${config:idf.pythonBinPath} ${config:idf.espIdfPath}/tools/idf.py -p ${config:idf.port} -b ${config:idf.flashBaudRate} flash -C examples/buttons",
+            "windows": {
+                "command": "${config:idf.pythonBinPathWin} ${config:idf.espIdfPathWin}\\tools\\idf.py flash -p ${config:idf.portWin} -b ${config:idf.flashBaudRate}",
+                "options": {
+                    "env": {
+                        "PATH": "${env:PATH};${config:idf.customExtraPaths}"
+                    }
+                }
+            },
+            "options": {
+                "env": {
+                    "PATH": "${env:PATH}:${config:idf.customExtraPaths}"
+                }
+            },
+            "problemMatcher": [
+                {
+                    "owner": "cpp",
+                    "fileLocation": [
+                        "relative",
+                        "${workspaceFolder}"
+                    ],
+                    "pattern": {
+                        "regexp": "^\\.\\.(.*):(\\d+):(\\d+):\\s+(warning|error):\\s+(.*)$",
+                        "file": 1,
+                        "line": 2,
+                        "column": 3,
+                        "severity": 4,
+                        "message": 5
+                    }
+                },
+                {
+                    "owner": "cpp",
+                    "fileLocation": "absolute",
+                    "pattern": {
+                        "regexp": "^[^\\.](.*):(\\d+):(\\d+):\\s+(warning|error):\\s+(.*)$",
+                        "file": 1,
+                        "line": 2,
+                        "column": 3,
+                        "severity": 4,
+                        "message": 5
+                    }
+                }
+            ]
+        },
+        {
+            "label": "Monitor: Buttons (any)",
+            "type": "shell",
+            "command": "${config:idf.pythonBinPath} ${config:idf.espIdfPath}/tools/idf.py -p ${config:idf.port} monitor -C examples/buttons",
+            "options": {
+                "env": {
+                    "PATH": "${env:PATH}:${config:idf.customExtraPaths}"
+                }
+            },
+            "problemMatcher": [
+                {
+                    "owner": "cpp",
+                    "fileLocation": [
+                        "relative",
+                        "${workspaceFolder}"
+                    ],
+                    "pattern": {
+                        "regexp": "^\\.\\.(.*):(\\d+):(\\d+):\\s+(warning|error):\\s+(.*)$",
+                        "file": 1,
+                        "line": 2,
+                        "column": 3,
+                        "severity": 4,
+                        "message": 5
+                    }
+                },
+                {
+                    "owner": "cpp",
+                    "fileLocation": "absolute",
+                    "pattern": {
+                        "regexp": "^[^\\.](.*):(\\d+):(\\d+):\\s+(warning|error):\\s+(.*)$",
+                        "file": 1,
+                        "line": 2,
+                        "column": 3,
+                        "severity": 4,
+                        "message": 5
+                    }
+                }
+            ]
+        },
+        {
+            "label": "OpenOCD: Start openOCD",
+            "type": "shell",
+            "presentation": {
+                "echo": true,
+                "reveal": "never",
+                "focus": false,
+                "panel": "new"
+            },
+            "command": "openocd -s ${command:espIdf.getOpenOcdScriptValue} ${command:espIdf.getOpenOcdConfigs}",
+            "windows": {
+                "command": "openocd.exe -s ${command:espIdf.getOpenOcdScriptValue} ${command:espIdf.getOpenOcdConfigs}",
+                "options": {
+                    "env": {
+                        "PATH": "${env:PATH};${config:idf.customExtraPaths}"
+                    }
+                }
+            },
+            "options": {
+                "env": {
+                    "PATH": "${env:PATH}:${config:idf.customExtraPaths}"
+                }
+            },
+            "problemMatcher": {
+                "owner": "cpp",
+                "fileLocation": "absolute",
+                "pattern": {
+                    "regexp": "^(.*):(\\d+):(\\d+):\\s+(warning|error):\\s+(.*)$",
+                    "file": 1,
+                    "line": 2,
+                    "column": 3,
+                    "severity": 4,
+                    "message": 5
+                }
+            }
+        },
+        {
+            "label": "adapter",
+            "type": "shell",
+            "command": "${config:idf.pythonBinPath}",
+            "isBackground": true,
+            "options": {
+                "env": {
+                    "PATH": "${env:PATH}:${config:idf.customExtraPaths}",
+                    "PYTHONPATH": "${command:espIdf.getExtensionPath}/esp_debug_adapter/debug_adapter"
+                }
+            },
+            "problemMatcher": {
+                "background": {
+                    "beginsPattern": "\bDEBUG_ADAPTER_STARTED\b",
+                    "endsPattern": "DEBUG_ADAPTER_READY2CONNECT",
+                    "activeOnStart": true
+                },
+                "pattern": {
+                    "regexp": "(\\d+)-(\\d+)-(\\d+)\\s(\\d+):(\\d+):(\\d+),(\\d+)\\s-(.+)\\s(ERROR)",
+                    "file": 8,
+                    "line": 2,
+                    "column": 3,
+                    "severity": 4,
+                    "message": 9
+                }
+            },
+            "args": [
+                "${command:espIdf.getExtensionPath}/esp_debug_adapter/debug_adapter_main.py",
+                "-e",
+                "${workspaceFolder}/build/${command:espIdf.getProjectName}.elf",
+                "-s",
+                "${command:espIdf.getOpenOcdScriptValue}",
+                "-ip",
+                "localhost",
+                "-dn",
+                "${config:idf.adapterTargetName}",
+                "-om",
+                "connect_to_instance"
+            ],
+            "windows": {
+                "command": "${config:idf.pythonBinPathWin}",
+                "options": {
+                    "env": {
+                        "PATH": "${env:PATH};${config:idf.customExtraPaths}",
+                        "PYTHONPATH": "${command:espIdf.getExtensionPath}/esp_debug_adapter/debug_adapter"
+                    }
+                }
+            }
+        }
+    ]
+}

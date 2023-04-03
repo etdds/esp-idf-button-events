@@ -7,6 +7,8 @@ idf_component_register(
         ${COMPONET_SRC}
     REQUIRES 
         "esp_timer"
+        "esp_event"
+        "driver"
     INCLUDE_DIRS 
         "include"
 )

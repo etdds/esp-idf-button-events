@@ -39,6 +39,13 @@ jobs:
         fi
       shell: bash
 
+    - name: Build and run tests.
+      run: |
+        mkdir build
+        cmake -DCMAKE_BUILD_TYPE=Debug -B build .   
+        cmake --build build
+        cd build && ctest --output-on-failure
+
     - name: Set configuration
       uses: espressif/esp-idf-ci-action@v1
       with:

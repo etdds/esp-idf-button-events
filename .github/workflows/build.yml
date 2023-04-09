@@ -39,6 +39,9 @@ jobs:
         fi
       shell: bash
 
+    - name: Install g++ for unit test support
+      run: sudo apt-get -y install g++
+
     - name: Build and run tests.
       run: |
         mkdir build

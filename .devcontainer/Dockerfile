@@ -15,6 +15,7 @@ RUN apt-get update \
   jq \
   ranger \
   vim \
+  g++ \
   && rm -rf /var/lib/apt/lists/*
 
 RUN DEBIAN_FRONTEND=noninteractive update-alternatives --install /usr/local/bin/usbip usbip `ls /usr/lib/linux-tools/*/usbip | tail -n1` 20

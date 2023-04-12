@@ -136,6 +136,23 @@
             }
         },
         {
+            "label": "Test - Button Storage",
+            "type": "shell",
+            "command": "mkdir -p build && cmake -DCMAKE_BUILD_TYPE=Debug -B build . && cmake --build build && ./build/test_button_storage ",
+            "problemMatcher": {
+                "owner": "cpp",
+                "fileLocation": "absolute",
+                "pattern": {
+                    "regexp": "^(.*):(//d+):(//d+)://s+(warning|error)://s+(.*)$",
+                    "file": 1,
+                    "line": 2,
+                    "column": 3,
+                    "severity": 4,
+                    "message": 5
+                }
+            }
+        },
+        {
             "label": "Pristine - Button (any)",
             "type": "shell",
             "command": "rm",

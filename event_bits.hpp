@@ -46,7 +46,7 @@ namespace EventBit {
    * @param button_index The button to which the event applies.
    * @return size_t The event bitmask for the trigger on the given button.
    */
-  size_t get_bit_mask(const Trigger event, const size_t button_index) {
+  constexpr size_t get_bit_mask(const Trigger event, const size_t button_index) {
     size_t shift = button_index % buttons_per_group();
     return event << (shift * event_count());
   }
@@ -58,7 +58,7 @@ namespace EventBit {
    * @param button_index The button index to calculate.
    * @return size_t The event group index.
    */
-  size_t get_group_index(const size_t button_index) { return button_index / buttons_per_group(); }
+  constexpr size_t get_group_index(const size_t button_index) { return button_index / buttons_per_group(); }
 
   /**
    * @brief Structure representing a single generated event.

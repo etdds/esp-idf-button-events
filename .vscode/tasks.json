@@ -47,7 +47,7 @@
         {
             "label": "Configure - Buttons (ttgo-tdisplay)",
             "type": "shell",
-            "command": "rm sdkconfig* && cp ttgo-tdisplay.defaults sdkconfig.defaults && idf.py set-target esp32",
+            "command": "rm sdkconfig* && cp ttgo-tdisplay.defaults sdkconfig.defaults && export ESPPORT=/dev/ttyUSB0 && idf.py set-target esp32",
             "options": {
                 "cwd": "${workspaceRoot}/examples/buttons"
             },
@@ -67,7 +67,7 @@
         {
             "label": "Configure - Buttons (ttgo-s3)",
             "type": "shell",
-            "command": "rm sdkconfig* && cp ttgo-s3.defaults sdkconfig.defaults && idf.py set-target esp32s3",
+            "command": "rm sdkconfig* && cp ttgo-s3.defaults sdkconfig.defaults && export ESPPORT=/dev/ACM0 && idf.py set-target esp32s3",
             "options": {
                 "cwd": "${workspaceRoot}/examples/buttons"
             },
@@ -218,7 +218,7 @@
         {
             "label": "Flash - Buttons (any)",
             "type": "shell",
-            "command": "${config:idf.pythonBinPath} ${config:idf.espIdfPath}/tools/idf.py -p ${config:idf.port} -b ${config:idf.flashBaudRate} flash -C examples/buttons",
+            "command": "idf.py flash -C examples/buttons",
             "windows": {
                 "command": "${config:idf.pythonBinPathWin} ${config:idf.espIdfPathWin}\\tools\\idf.py flash -p ${config:idf.portWin} -b ${config:idf.flashBaudRate}",
                 "options": {
@@ -265,7 +265,7 @@
         {
             "label": "Monitor: Buttons (any)",
             "type": "shell",
-            "command": "${config:idf.pythonBinPath} ${config:idf.espIdfPath}/tools/idf.py -p ${config:idf.port} monitor -C examples/buttons",
+            "command": "idf.py monitor -C examples/buttons",
             "options": {
                 "env": {
                     "PATH": "${env:PATH}:${config:idf.customExtraPaths}"

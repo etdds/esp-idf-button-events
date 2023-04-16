@@ -1,4 +1,10 @@
 menu "ESP IDF Button Events"
 
+    config ESP_BE_MAX_BUTTON_COUNT
+        int "Number supported Buttons"
+        range 1 6
+        default 6
+        help
+            The maximum number of supported buttons
 
 endmenu  # ESP IDF Button Events

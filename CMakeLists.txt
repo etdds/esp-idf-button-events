@@ -7,6 +7,8 @@ set(COMPONENT_NAME "esp-idf-button-events")
 
 set(COMPONENT_SRCS 
     "esp_idf_button_events.cpp"
+    "event_manager.cpp"
+    "button_builder.cpp"
 )
 
 set(COMPONENT_REQUIRES 
@@ -17,10 +19,6 @@ set(COMPONENT_REQUIRES
 
 set(COMPONENT_ADD_INCLUDEDIRS 
     "include"
-)
-
-set(COMPONET_SRC 
-    "esp_idf_button_events.cpp"
 )
 
 if(DEFINED ESP_PLATFORM)

@@ -20,7 +20,7 @@ enum class State {
   NOT_PRESSED,
 };
 
-enum EventType {
+enum class EventType {
   BUTTON_UP,
   BUTTON_DOWN,
   BUTTON_PRESS,
@@ -34,7 +34,7 @@ class ButtonBuilder;
 class Button {
  public:
   static ButtonBuilder create(const char* name, gpio_num_t pin);
-  void add_handler(esp_event_handler_t handler, void* arg, int32_t event);
+  void add_handler(esp_event_handler_t handler, void* arg, EventType event);
   State current_state() const;
   size_t last_transition() const;
   const char* name() const;

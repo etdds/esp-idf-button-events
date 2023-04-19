@@ -17,8 +17,8 @@ EventGroupHandle_t EventManager::event_group(const size_t index) {
   return _event_groups[index];
 }
 
-void EventManager::add_event(Button* button, int32_t event, esp_event_handler_t handler, void* arg) {
-  esp_event_handler_instance_register_with(loop_with_task, button->_name, event, handler, arg, nullptr);
+void EventManager::add_event(Button* button, EventType event, esp_event_handler_t handler, void* arg) {
+  esp_event_handler_instance_register_with(loop_with_task, button->_name, static_cast<int32_t>(event), handler, arg, nullptr);
 }
 
 EventManager::EventManager() {
@@ -51,12 +51,12 @@ EventManager::EventManager() {
   ESP_ERROR_CHECK(esp_event_loop_create(&loop_with_task_args, &loop_with_task));
 };
 
-void EventManager::_send_event(Button* button, const EventType event) {
+void EventManager::_send_event(Button* button, EventType event) {
   auto e = EventData();
   e.button = button;
   e.timestamp = esp_timer_get_time();
   e.event = event;
-  esp_event_post_to(loop_with_task, button->_name, event, &e, sizeof(e), portMAX_DELAY);
+  esp_event_post_to(loop_with_task, button->_name, static_cast<uint32_t>(event), &e, sizeof(e), portMAX_DELAY);
 }
 
 void EventManager::task_loop() {
@@ -81,20 +81,20 @@ void EventManager::task_loop() {
           button->_transition_time = esp_timer_get_time();
           esp_timer_start_once(button->_press_timer, button->_hold_press);
           // TODO: Kconfig to disable transition events
-          _send_event(button, BUTTON_DOWN);
+          _send_event(button, EventType::BUTTON_DOWN);
         }
         else {
           auto current_time = esp_timer_get_time();
           auto delta_us = (current_time - button->_transition_time);
           esp_timer_stop(button->_press_timer);
           // TODO: Kconfig to disable transition events
-          _send_event(button, BUTTON_UP);
+          _send_event(button, EventType::BUTTON_UP);
 
           if(delta_us > button->_long_press) {
-            _send_event(button, BUTTON_LONG_PRESS);
+            _send_event(button, EventType::BUTTON_LONG_PRESS);
           }
           else if(delta_us > button->_short_press) {
-            _send_event(button, BUTTON_PRESS);
+            _send_event(button, EventType::BUTTON_PRESS);
           }
           else {
             // No press
@@ -103,7 +103,7 @@ void EventManager::task_loop() {
       }
       if(event.trigger == Trigger::REPEAT_EVENT) {
         // TODO, maybe make repeat events selectable.
-        _send_event(button, BUTTON_HELD);
+        _send_event(button, EventType::BUTTON_HELD);
       }
     }
   }

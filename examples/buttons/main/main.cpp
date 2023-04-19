@@ -28,17 +28,17 @@ extern "C" void app_main(void) {
   uint32_t value = 55;
   uint32_t value_any = 65;
 
-  b1->add_handler(press_any, &value_any, BUTTON_DOWN);
-  b1->add_handler(press_any, &value_any, BUTTON_UP);
-  b1->add_handler(press_any, &value_any, BUTTON_PRESS);
-  b1->add_handler(press_any, &value_any, BUTTON_LONG_PRESS);
-  b1->add_handler(press_any, &value_any, BUTTON_HELD);
+  b1->add_handler(press_any, &value_any, EventType::BUTTON_DOWN);
+  b1->add_handler(press_any, &value_any, EventType::BUTTON_UP);
+  b1->add_handler(press_any, &value_any, EventType::BUTTON_PRESS);
+  b1->add_handler(press_any, &value_any, EventType::BUTTON_LONG_PRESS);
+  b1->add_handler(press_any, &value_any, EventType::BUTTON_HELD);
 
-  b1->add_handler(press_handler, &value_any, BUTTON_PRESS);
-  b1->add_handler(long_handler, &value_any, BUTTON_LONG_PRESS);
+  b1->add_handler(press_handler, &value_any, EventType::BUTTON_PRESS);
+  b1->add_handler(long_handler, &value_any, EventType::BUTTON_LONG_PRESS);
 
-  b->add_handler(long_handler, &value, BUTTON_LONG_PRESS);
-  b->add_handler(press_handler, &value, BUTTON_PRESS);
+  b->add_handler(long_handler, &value, EventType::BUTTON_LONG_PRESS);
+  b->add_handler(press_handler, &value, EventType::BUTTON_PRESS);
 
   while(1) {
     // Delay the task for 1000ms (1 second)

@@ -110,6 +110,6 @@ Button::Button(const char* name, gpio_num_t pin) :
   _event_group = Manager().event_group(binding.event_group_index);
 }
 
-void Button::add_handler(esp_event_handler_t handler, void* arg, int32_t event) {
+void Button::add_handler(esp_event_handler_t handler, void* arg, EventType event) {
   EventManager::instance().add_event(this, event, handler, arg);
 }

@@ -16,15 +16,14 @@ class EventManager {
  public:
   static EventManager& instance();
   Storage::Binding add_button(Button* button);
-  // TODO int32_t event, could use an enum class.
-  void add_event(Button* button, int32_t event, esp_event_handler_t handler, void* arg);
+  void add_event(Button* button, EventType event, esp_event_handler_t handler, void* arg);
   EventGroupHandle_t event_group(const size_t index);
 
  private:
   EventManager();
   void task_loop();
   Storage::ButtonHandler<Button*, CONFIG_ESP_BE_MAX_BUTTON_COUNT, EventBit::buttons_per_group()> _buttons;
-  void _send_event(Button* button, const EventType event);
+  void _send_event(Button* button, EventType event);
 
   // TOOD the plus 1 is ugly, add a function which calculates this.
   std::array<EventGroupHandle_t, (CONFIG_ESP_BE_MAX_BUTTON_COUNT / EventBit::buttons_per_group()) + 1> _event_groups;

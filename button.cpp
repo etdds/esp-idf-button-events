@@ -16,8 +16,7 @@ ButtonBuilder Button::create(const char* name, gpio_num_t pin) {
 }
 
 constexpr State to_state(bool level, bool inverted) {
-  // TODO: Handle inverted button.
-  return level ? State::NOT_PRESSED : State::PRESSED;
+  return level ^ inverted ? State::NOT_PRESSED : State::PRESSED;
 }
 
 void IRAM_ATTR Button::button_isr_handler(void* arg) {

@@ -1,7 +1,7 @@
 #pragma once
 
 #include <cstddef>
-#include <esp_idf_button_events/esp_idf_button_events.hpp>
+#include <esp_idf_button_events/button.hpp>
 
 #include "button_storage.hpp"
 #include "esp_event.h"

@@ -6,7 +6,7 @@ endif()
 set(COMPONENT_NAME "esp-idf-button-events")
 
 set(COMPONENT_SRCS 
-    "esp_idf_button_events.cpp"
+    "button.cpp"
     "event_manager.cpp"
     "button_builder.cpp"
 )

@@ -1,4 +1,4 @@
-#include <esp_idf_button_events/esp_idf_button_events.hpp>
+#include <esp_idf_button_events/button.hpp>
 
 #include "esp_system.h"
 

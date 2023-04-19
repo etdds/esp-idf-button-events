@@ -2,7 +2,7 @@
 #include <freertos/task.h>
 #include <stdio.h>
 
-#include <esp_idf_button_events/esp_idf_button_events.hpp>
+#include <esp_idf_button_events/button.hpp>
 
 #include "esp_system.h"
 static void press_any(void* handler_args, esp_event_base_t base, int32_t id, void* event_data) {

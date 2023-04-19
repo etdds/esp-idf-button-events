@@ -65,12 +65,11 @@ void Button::_pin_init(const bool pull_up, const bool pull_down) {
   };
   gpio_config(&io_conf);
 
-  // TODO get this in a static member function.
-  static bool i = false;
-  if(!i) {
+  static bool __attribute__((unused)) once = []() {
     gpio_install_isr_service(0);
-    i = true;
-  }
+    return true;
+  }();
+
   gpio_isr_handler_add(_pin, Button::button_isr_handler, this);
 }
 

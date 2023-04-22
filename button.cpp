@@ -36,9 +36,9 @@ void Button::timer_debounce_callback(void* arg) {
   xEventGroupSetBits(b->_event_group, b->_timer_event_bit);
 }
 
-void Button::timer_press_callback(void* arg) {
+void Button::timer_held_callback(void* arg) {
   auto b = static_cast<Button*>(arg);
-  esp_timer_start_once(b->_press_timer, b->_hold_repeat);
+  esp_timer_start_once(b->_held_timer, b->_hold_repeat);
   xEventGroupSetBits(b->_event_group, b->_repeat_event_bit);
 }
 
@@ -87,20 +87,21 @@ Button::Button(const char* name, gpio_num_t pin) :
   _transition_time(0) {
   auto binding = Manager().add_button(this);
   assert(binding.valid);
-  // TODO Timer naming
+
+  // TODO Timer naming could somehow also have the button name and type.
+  // Fow now, both timers have the same name.
   esp_timer_create_args_t timer_param = {.callback = Button::timer_debounce_callback,
                                          .arg = this,
                                          .dispatch_method = ESP_TIMER_TASK,
-                                         .name = "db_timer",
+                                         .name = name,
                                          .skip_unhandled_events = false};
 
 
   esp_timer_create(&timer_param, &_debounce_timer);
 
-  // TODO Timer naming.
-  timer_param.callback = Button::timer_press_callback;
-  timer_param.name = "press_timer";
-  esp_timer_create(&timer_param, &_press_timer);
+  timer_param.callback = Button::timer_held_callback;
+  timer_param.name = name;
+  esp_timer_create(&timer_param, &_held_timer);
 
   _press_event_bit = get_bit_mask(Trigger::PRESS_EVENT, binding.button_index);
   _timer_event_bit = get_bit_mask(Trigger::TIMER_EVENT, binding.button_index);

@@ -59,7 +59,7 @@ class Button {
   // Common ISR and timer expired events.
   static void button_isr_handler(void* arg);
   static void timer_debounce_callback(void* arg);
-  static void timer_press_callback(void* arg);
+  static void timer_held_callback(void* arg);
 
   // Button interaction with event manager
   friend class EventManager;
@@ -73,7 +73,7 @@ class Button {
   bool _debounce_active;
   uint64_t _transition_time;
   esp_timer_handle_t _debounce_timer;
-  esp_timer_handle_t _press_timer;
+  esp_timer_handle_t _held_timer;
 };
 
 class ButtonBuilder {

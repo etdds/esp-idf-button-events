@@ -79,14 +79,14 @@ void EventManager::task_loop() {
         button->_debounce_active = false;
         if(button->_current_state == State::PRESSED) {
           button->_transition_time = esp_timer_get_time();
-          esp_timer_start_once(button->_press_timer, button->_hold_press);
+          esp_timer_start_once(button->_held_timer, button->_hold_press);
           // TODO: Kconfig to disable transition events
           _send_event(button, EventType::BUTTON_DOWN);
         }
         else {
           auto current_time = esp_timer_get_time();
           auto delta_us = (current_time - button->_transition_time);
-          esp_timer_stop(button->_press_timer);
+          esp_timer_stop(button->_held_timer);
           // TODO: Kconfig to disable transition events
           _send_event(button, EventType::BUTTON_UP);
 

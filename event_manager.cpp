@@ -31,22 +31,14 @@ EventManager::EventManager() {
       auto manager = static_cast<EventManager*>(arg);
       manager->task_loop();
     },
-    // TODO: Kconfig for:
-    // - STACK
-    // - Priority
-    "button_event_manager", configMINIMAL_STACK_SIZE * 4, this, 5, NULL);
+    "button_event_manager", CONFIG_ESP_BE_TASK_STACK_SIZE, this, CONFIG_ESP_BE_TASK_PRIORITY, NULL);
 
-  // TODO: Kconfig for:
-  // - Queue size
-  // - Priroity
-  // - Task size
-  // - Affinity
-  // - Using default event loop vs dedicated
-  esp_event_loop_args_t loop_with_task_args = {.queue_size = 5,
+  // TODO: Using default event loop vs dedicated
+  esp_event_loop_args_t loop_with_task_args = {.queue_size = CONFIG_ESP_BE_EVENT_LOOP_QUEUE_SIZE,
                                                .task_name = "loop_task",  // task will be created
-                                               .task_priority = uxTaskPriorityGet(NULL),
-                                               .task_stack_size = 3072,
-                                               .task_core_id = tskNO_AFFINITY};
+                                               .task_priority = CONFIG_ESP_BE_EVENT_LOOP_TASK_PRIORITY,
+                                               .task_stack_size = CONFIG_ESP_BE_EVENT_LOOP_STACK_SIZE,
+                                               .task_core_id = CONFIG_ESP_BE_EVENT_LOOP_TASK_AFFINITY};
 
   ESP_ERROR_CHECK(esp_event_loop_create(&loop_with_task_args, &loop_with_task));
 };

@@ -7,4 +7,94 @@ menu "ESP IDF Button Events"
         help
             The maximum number of supported buttons
 
+    config ESP_BE_DEFAULT_DEBOUNCE_MS
+        int "Default debounce time (ms)"
+        range 0 100
+        default 50
+        help
+            The default time, in ms, used for pin debounce. Essentially, this is just the 
+            time after the first edge transition that the button state is read.
+
+    config ESP_BE_DEFAULT_SHORT_PRESS_MS
+        int "Default short button press (ms)"
+        range 20 1000
+        default 100
+        help
+            The default time, in ms, used to determine if a button was pressed. 
+            This is minimum time between the pressed and no pressed states. Durations shorter 
+            than this are ignored.
+
+    config ESP_BE_DEFAULT_LONG_PRESS_MS
+        int "Default long button press (ms)"
+        range 500 10000
+        default 3000
+        help
+            The default time, in ms, used to determine if a button was long pressed. 
+            This is minimum time between the pressed and no pressed states. Durations shorter than
+            this are considered a short press.
+
+    config ESP_BE_DEFAULT_HELD_MS
+        int "Default held button event time (ms)"
+        range 500 10000
+        default 3000
+        help
+            The default time, in ms, used to determine if a button has been held.
+            Held events don't requrire the button to have transitioned to the no pressed state.
+
+    config ESP_BE_DEFAULT_HELD_REPEAT_MS
+        int "Default held button repeat (ms)"
+        range 200 10000
+        default 500
+        help
+            How often repeat events are generated after the first held event.
+
+    config ESP_BE_DEFAULT_BUTTON_INVERTED
+        bool "Default button state inverted"
+        default n
+        help
+            Non Inverted: Low = pressed, High = not pressed.
+            Inverted: High = pressed, Low = not pressed.
+
+    config ESP_BE_TASK_STACK_SIZE
+        int "Event manager stack size"
+        range 1024 8192
+        default 2048
+        help
+            The default stack size used for the button event manager.
+
+    config ESP_BE_TASK_PRIORITY
+        int "Event manager task priority"
+        range 1 25
+        default 8
+        help
+            The default task priority used for the button event manager.
+
+    config ESP_BE_EVENT_LOOP_STACK_SIZE
+        int "Event loop stack size"
+        range 1024 8192
+        default 2048
+        help
+            The default stack size used for the button event manager.
+
+    config ESP_BE_EVENT_LOOP_TASK_PRIORITY
+        int "Event loop task priority"
+        range 1 25
+        default 10
+        help
+            The default task priority used for the button event loop.
+
+    config ESP_BE_EVENT_LOOP_QUEUE_SIZE
+        int "Event loop queue size"
+        range 5 25
+        default 5
+        help
+            The size of the event loop queue.
+
+    config ESP_BE_EVENT_LOOP_TASK_AFFINITY
+        int "Event loop task affininty"
+        range -1 1
+        default -1
+        help
+            The core to run the event loop on. -1 allows the loop to run on both cores.
+
 endmenu  # ESP IDF Button Events

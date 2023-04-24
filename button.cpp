@@ -72,16 +72,19 @@ void Button::_pin_init(const bool pull_up, const bool pull_down) {
   gpio_isr_handler_add(_pin, Button::button_isr_handler, this);
 }
 
-// TODO: Add KConfig options for configuraiton.
 Button::Button(const char* name, gpio_num_t pin) :
   _pin(pin),
-  _inverted{false},
+#ifdef CONFIG_ESP_BE_DEFAULT_BUTTON_INVERTED
+  _inverted(true),
+#else
+  _inverted(false),
+#endif
   _name(name),
-  _debounce(50000),
-  _short_press(100000),
-  _long_press(3000000),
-  _hold_press(5000000),
-  _hold_repeat(500000),
+  _debounce(ms_to_us(CONFIG_ESP_BE_DEFAULT_DEBOUNCE_MS)),
+  _short_press(ms_to_us(CONFIG_ESP_BE_DEFAULT_SHORT_PRESS_MS)),
+  _long_press(ms_to_us(CONFIG_ESP_BE_DEFAULT_LONG_PRESS_MS)),
+  _hold_press(ms_to_us(CONFIG_ESP_BE_DEFAULT_HELD_MS)),
+  _hold_repeat(ms_to_us(CONFIG_ESP_BE_DEFAULT_HELD_REPEAT_MS)),
   _current_state{State::NOT_PRESSED},
   _debounce_active{false},
   _transition_time(0) {

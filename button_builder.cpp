@@ -2,10 +2,6 @@
 
 #include "esp_system.h"
 
-constexpr size_t ms_to_us(const size_t ms) {
-  return ms * 1000;
-}
-
 ButtonBuilder::ButtonBuilder(const char* name, gpio_num_t pin) : _button{new Button(name, pin)}, _pull_up(true), _pull_down(false) {
 }
 

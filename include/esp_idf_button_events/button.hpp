@@ -107,3 +107,7 @@ class EventData {
   uint64_t timestamp;
   EventType event;
 };
+
+constexpr size_t ms_to_us(const size_t ms) {
+  return ms * 1000;
+}

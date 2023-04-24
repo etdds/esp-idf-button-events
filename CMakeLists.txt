@@ -1,6 +1,7 @@
 if(NOT DEFINED ESP_PLATFORM)
     cmake_minimum_required(VERSION 3.0.0)
     project(esp-idf-button-events)
+    set(CMAKE_CXX_STANDARD 17)
 endif()
 
 set(COMPONENT_NAME "esp-idf-button-events")

@@ -4,6 +4,8 @@
 
 #include <esp_idf_button_events/button.hpp>
 
+using namespace ButtonEvents;
+
 #include "esp_system.h"
 static void press_any(void* handler_args, esp_event_base_t base, int32_t id, void* event_data) {
   auto event = EventData(event_data);

@@ -8,33 +8,11 @@ A ESP IDF component for managing buttons tied to GPIO pins in a publish / suscri
  - Button held event.
  - Button held repeat event.
 
-Generated events can be a one to many subscribers, or multiple events to a single subscriber. The component is managed by ISR events and timer callbacks. Minimal to no processing time is required if no buttons are being toggled.
+Generated events can be a one to many subscribers, or multiple events to a single subscriber. Button events are managed by a FSM triggered by ISR events and timer callbacks. Minimal to no processing time is required if no buttons are being toggled.
 
 # Example Usage
 
-The following example is located at `examples/buttons`. Once cloned it can be build and run with:
-
-```bash
-
-# Configure for ttgo-tdisplay. This only effects the GPIO numbers used in the board. Other boards can be tested by changing
-# The GPIO numbers in the example
-cd examples/buttons && rm -f sdkconfig* && cp ttgo-tdisplay.defaults sdkconfig.defaults && idf.py set-target esp32
-
-# Build the example (from the examples/buttons directory)
-idf.py build
-
-# Flash
-idf.py -p (PORT) flash
-
-# Monitor output
-idf.py -p (PORT) monitor
-
-# Clean
-idf.py fullclean
-
-```
-
-The source for the example:
+The following example is also located at `examples/buttons`.
 
 ```c++
 #include <freertos/FreeRTOS.h>
@@ -163,6 +141,26 @@ I (3718) MAIN: Any handler: Button B: ID 0, arg: 55
 I (3718) MAIN: Any handler: Button B: ID 2, arg: 55
 ```
 
+To build the example locally:
+```bash
+# Configure for ttgo-tdisplay. This only effects the GPIO numbers used in the board. Other boards can be tested by changing
+# The GPIO numbers in the example
+cd examples/buttons && rm -f sdkconfig* && cp ttgo-tdisplay.defaults sdkconfig.defaults && idf.py set-target esp32
+
+# Build the example (from the examples/buttons directory)
+idf.py build
+
+# Flash
+idf.py -p (PORT) flash
+
+# Monitor output
+idf.py -p (PORT) monitor
+
+# Clean
+idf.py fullclean
+
+```
+
 # Installation
 
 ## ESP IDF component manager
@@ -194,10 +192,11 @@ Default configuration for buttons and tasks is done using KConfig. When using th
 # Limitiations / TODO
 
 Some known limitations which may be addressed in the future. Feel free to implement and open a pull request, or open an issue to disccuss.
-  - There is a hard limit on the number of buttons which can be used (6). Some modification to the used FreeRTOS event bits needs to be done to support more.
+  - There is a hard limit on the number of buttons which can be used (6). Some modification to the event generation FreeRTOS event bits needs to be done to support more.
   - Buttons are never deinitialised, nor is there a method to release the memory allocated for the button. This should be added together.
   - The button could be fetched by name, since the event manager keeps track of the button handlers. That way, the button handler doesn't need to be tracked externally.
   - Timers for individual buttons have the same name.
-  - Could add an option to reduce the number of possible event. E.g filter out press down and press up events. Reducing load.
+  - Could add an option to reduce the number of possible events. E.g filter out press down and press up events. Reducing load when an event occurs.
   - Could add the option to use the inbuilt ESP event loop, to save resources.
   - The manager task and event loop stack size / prioriy are just initial values. Some profiling could be done to choose better defaults.
+  - It is (currently) not possible to remove a handler from an event.

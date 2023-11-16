@@ -11,7 +11,8 @@
 		"espressif.esp-idf-extension",
 		"xaver.clang-format",
 		"mhutchie.git-graph",
-		"cschlosser.doxdocgen"
+		"cschlosser.doxdocgen",
+		"ms-vscode.cpptools-extension-pack"
 	],
 	"workspaceMount": "source=${localWorkspaceFolder},target=/workspaces/esp-idf-button-events,type=bind",
 	/* the path of workspace folder to be opened after container is running*/
